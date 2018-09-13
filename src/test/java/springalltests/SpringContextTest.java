@@ -4,6 +4,8 @@ import com.config.PropertiesConfig;
 import com.config.SpringConfig;
 import com.config.WebConfig;
 import com.config.WebDispatcherServlet;
+import com.entity.User;
+import com.service.userservice.UserService;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -20,16 +22,15 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.List;
 import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
@@ -45,6 +46,9 @@ public class SpringContextTest {
     private WebApplicationContext webApplicationContext;
 
     private MockMvc mockMvc;
+
+    @Autowired
+    private UserService userService;
 
     @Before
     public void setUp() {
@@ -62,7 +66,6 @@ public class SpringContextTest {
     }
 
     @Test
-    @Ignore
     public void getJson() throws Exception{
        MvcResult result = mockMvc.perform(
           get("/json")
@@ -100,5 +103,11 @@ public class SpringContextTest {
         String cookie = Objects.requireNonNull(userResult.getResponse().getCookie("testCookie")).getValue();
         System.out.println(cookie);
         System.out.println(userResult.getResponse().getContentAsString());
+    }
+
+    @Test
+    public void mockTest(){
+        List<User> users = userService.getAllUsers();
+        users.forEach(System.out::println);
     }
 }
