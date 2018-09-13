@@ -1,5 +1,6 @@
 com\config\WebConfig.class
 com\config\PropertiesConfig.class
-com\config\WebDispatcherServlet.class
 com\config\SpringSecurityConfig.class
 com\config\SpringConfig.class
+com\config\WebDispatcherServlet.class
+com\controllers\PageController.class
