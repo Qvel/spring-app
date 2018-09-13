@@ -1,6 +1,10 @@
 com\config\WebConfig.class
 com\config\PropertiesConfig.class
+com\service\userservice\UserService.class
+com\service\userservice\UserServiceImpl.class
 com\config\SpringSecurityConfig.class
 com\config\SpringConfig.class
+com\entity\User$UserBuilder.class
+com\entity\User.class
 com\config\WebDispatcherServlet.class
 com\controllers\PageController.class
