@@ -58,7 +58,7 @@ public class SpringContextTest {
     public void getJson() throws Exception{
        MvcResult result = mockMvc.perform(
           get("/json")
-          .headers(HttpHeaders.EMPTY)
+          .header(HttpHeaders.USER_AGENT,"test")
         ).andDo(print())
                .andExpect(status().isAccepted())
                .andReturn()
