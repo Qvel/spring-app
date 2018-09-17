@@ -50,13 +50,15 @@ public class SpringContextTest {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private User user;
+
     @Before
     public void setUp() {
         mockMvc = webAppContextSetup(webApplicationContext)
                 .build();
     }
     @Test
-    @Ignore
     public void mainController() throws Exception{
         mockMvc.perform(
                 get("/")
@@ -109,5 +111,13 @@ public class SpringContextTest {
     public void mockTest(){
         List<User> users = userService.getAllUsers();
         users.forEach(System.out::println);
+        System.out.println(user);
+        user.setName("Serj");
+        System.out.println(user);
+    }
+
+    @Test
+    public void prototypeTest(){
+        System.out.println(user);
     }
 }

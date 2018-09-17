@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: springalltests.SpringContextTest
 -------------------------------------------------------------------------------
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 2, Time elapsed: 1.628 sec
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 4, Time elapsed: 1.479 sec

@@ -1,7 +1,5 @@
 package com.entity;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -9,7 +7,6 @@ import org.springframework.stereotype.Component;
 import java.io.Serializable;
 import java.util.Objects;
 
-@JsonDeserialize(builder = User.UserBuilder.class)
 @Component
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class User implements Serializable {
@@ -21,7 +18,6 @@ public class User implements Serializable {
         this.name = userBuilder.name;
         this.age = userBuilder.age;
     }
-
     private String name;
     private Long age;
 
@@ -62,7 +58,7 @@ public class User implements Serializable {
                 ", age=" + age +
                 '}';
     }
-    @JsonPOJOBuilder(buildMethodName = "build",withPrefix = "set")
+
     public static class UserBuilder{
         private String name;
         private Long age;

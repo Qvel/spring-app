@@ -1,7 +1,6 @@
 package com.controllers;
 
 import com.entity.User;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.service.userservice.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,4 +73,5 @@ public class PageController {
         response.addCookie(userCookie);
         return ResponseEntity.ok(userService.getAllUsers());
     }
+
 }
