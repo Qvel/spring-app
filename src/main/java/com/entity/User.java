@@ -4,10 +4,13 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Component
+@Entity
+@Table(name="users")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class User implements Serializable {
 
@@ -18,8 +21,23 @@ public class User implements Serializable {
         this.name = userBuilder.name;
         this.age = userBuilder.age;
     }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name="name",nullable = false,length = 100)
     private String name;
+    @Column(name="age",nullable = false,length = 2)
     private Long age;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

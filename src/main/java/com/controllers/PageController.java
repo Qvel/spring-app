@@ -1,5 +1,6 @@
 package com.controllers;
 
+import com.dao.UsersDAO;
 import com.entity.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.service.userservice.UserService;
@@ -16,16 +17,19 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class PageController {
 
-    private final UserService userService;
+    private UserService userService;
+    private UsersDAO usersDAO;
 
     @Autowired
-    public PageController(UserService userService) {
+    public PageController(UserService userService,UsersDAO usersDAO) {
         this.userService = userService;
+        this.usersDAO = usersDAO;
     }
 
     @GetMapping
@@ -73,5 +77,22 @@ public class PageController {
         response.addCookie(userCookie);
         return ResponseEntity.ok(userService.getAllUsers());
     }
+
+    @GetMapping
+    @RequestMapping(value="/jpa",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<User>> getAllUsersFromBd(){
+         List<User> users = new ArrayList<>();
+         usersDAO.findAll().forEach(
+                 users::add
+         );
+        return ResponseEntity.ok(users);
+    }
+
+    @GetMapping
+    @RequestMapping(value="/jpaLike",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<User>> getAllUsersFromBdByName(){
+        return ResponseEntity.ok(usersDAO.findByNameIgnoreCaseContaining("Max"));
+    }
+
 
 }

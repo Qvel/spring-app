@@ -59,6 +59,7 @@ public class SpringContextTest {
                 .build();
     }
     @Test
+    @Ignore
     public void mainController() throws Exception{
         mockMvc.perform(
                 get("/")
@@ -68,6 +69,7 @@ public class SpringContextTest {
     }
 
     @Test
+    @Ignore
     public void getJson() throws Exception{
        MvcResult result = mockMvc.perform(
           get("/json")
@@ -81,6 +83,7 @@ public class SpringContextTest {
     }
 
     @Test
+    @Ignore
     public void getUsers() throws Exception{
         MvcResult userResult = mockMvc.perform(
                 get("/getUsers")
@@ -94,6 +97,7 @@ public class SpringContextTest {
     }
 
     @Test
+    @Ignore
     public void getUsersWithCookie() throws Exception {
         MvcResult userResult = mockMvc.perform(
                 get("/getUsersWithCookie")
@@ -108,6 +112,7 @@ public class SpringContextTest {
     }
 
     @Test
+    @Ignore
     public void mockTest(){
         List<User> users = userService.getAllUsers();
         users.forEach(System.out::println);
@@ -117,7 +122,34 @@ public class SpringContextTest {
     }
 
     @Test
+    @Ignore
     public void prototypeTest(){
         System.out.println(user);
+    }
+
+    @Test
+    public void jpaTest() throws Exception{
+        MvcResult usersResult = mockMvc.perform(
+                get("/jpa")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+        ).andDo(
+                print()
+        ).andExpect(status().isOk())
+                .andReturn();
+
+        System.out.println(usersResult.getResponse().getContentAsString());
+    }
+
+    @Test
+    public void jpaTestLike() throws Exception{
+        MvcResult usersResult = mockMvc.perform(
+                get("/jpaLike")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+        ).andDo(
+                print()
+        ).andExpect(status().isOk())
+                .andReturn();
+
+        System.out.println(usersResult.getResponse().getContentAsString());
     }
 }
