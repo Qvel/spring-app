@@ -59,7 +59,6 @@ public class SpringContextTest {
                 .build();
     }
     @Test
-    @Ignore
     public void mainController() throws Exception{
         mockMvc.perform(
                 get("/")
@@ -128,6 +127,7 @@ public class SpringContextTest {
     }
 
     @Test
+    @Ignore
     public void jpaTest() throws Exception{
         MvcResult usersResult = mockMvc.perform(
                 get("/jpa")
@@ -141,6 +141,7 @@ public class SpringContextTest {
     }
 
     @Test
+    @Ignore
     public void jpaTestLike() throws Exception{
         MvcResult usersResult = mockMvc.perform(
                 get("/jpaLike")

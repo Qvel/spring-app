@@ -7,6 +7,7 @@
     <groupId>some-idea</groupId>
     <artifactId>some-idea</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
 
     <name>spring-app</name>
     <url>http://maven.apache.org</url>
