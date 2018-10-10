@@ -1,6 +1,5 @@
 package com.controllers;
 
-import com.dao.UsersDAO;
 import com.entity.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.service.userservice.UserService;
@@ -17,19 +16,14 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class PageController {
-
     private UserService userService;
-    private UsersDAO usersDAO;
-
     @Autowired
-    public PageController(UserService userService,UsersDAO usersDAO) {
+    public PageController(UserService userService) {
         this.userService = userService;
-        this.usersDAO = usersDAO;
     }
 
     @GetMapping
@@ -47,7 +41,7 @@ public class PageController {
     @GetMapping
     @RequestMapping(value="/getUsers",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<User>> getUsers(){
-        return ResponseEntity.ok(userService.getAllUsers());
+        return ResponseEntity.ok(userService.findAll());
     }
 
     @GetMapping
@@ -60,7 +54,7 @@ public class PageController {
                 + File.separator + "WEB-INF" + File.separator + "users.json";
 
         ObjectMapper objectMapper = new ObjectMapper();
-        List<User> users = userService.getAllUsers();
+        List<User> users = userService.findAll();
         try {
             System.out.println(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(users));
             objectMapper.writeValue(new File(directory), users);
@@ -75,23 +69,19 @@ public class PageController {
     public ResponseEntity<List<User>> getUsersWithCookie(HttpServletResponse response){
         Cookie userCookie = new Cookie("testCookie","list of users");
         response.addCookie(userCookie);
-        return ResponseEntity.ok(userService.getAllUsers());
+        return ResponseEntity.ok(userService.findAll());
     }
 
     @GetMapping
     @RequestMapping(value="/jpa",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<User>> getAllUsersFromBd(){
-         List<User> users = new ArrayList<>();
-         usersDAO.findAll().forEach(
-                 users::add
-         );
-        return ResponseEntity.ok(users);
+        return ResponseEntity.ok(userService.findAll());
     }
 
     @GetMapping
     @RequestMapping(value="/jpaLike",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<User>> getAllUsersFromBdByName(){
-        return ResponseEntity.ok(usersDAO.findByNameIgnoreCaseContaining("Max"));
+        return ResponseEntity.ok(userService.findByNameIgnoreCaseContaining("Max"));
     }
 
 

@@ -5,7 +5,6 @@ import com.config.SpringConfig;
 import com.config.WebConfig;
 import com.config.WebDispatcherServlet;
 import com.entity.User;
-import com.service.userservice.UserService;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
